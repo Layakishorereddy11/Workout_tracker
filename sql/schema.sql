@@ -1,0 +1,27 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE workouts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    workout_date DATE NOT NULL,
+    notes TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE exercises (
+    id SERIAL PRIMARY KEY,
+    workout_id INTEGER NOT NULL,
+    exercise_name VARCHAR(100) NOT NULL,
+    sets INTEGER NOT NULL,
+    reps INTEGER NOT NULL,
+    weight_kg NUMERIC(6, 2),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (workout_id) REFERENCES workouts(id) ON DELETE CASCADE
+);
