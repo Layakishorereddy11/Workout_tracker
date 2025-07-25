@@ -1,0 +1,36 @@
+#request to create a user.
+
+curl -X POST http://localhost:8080/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "password123"
+}'
+
+
+#send a POST request to create a new workout for our user with id 1.
+curl -X POST http://localhost:8080/api/users/1/workouts \
+-H "Content-Type: application/json" \
+-d '{
+  "workoutDate": "2024-07-26",
+  "notes": "Leg day",
+  "exercises": [
+    {
+      "exerciseName": "Squats",
+      "sets": 3,
+      "reps": 10,
+      "weightKg": 100
+    },
+    {
+      "exerciseName": "Leg Press",
+      "sets": 3,
+      "reps": 12,
+      "weightKg": 150
+    }
+  ]
+}'
+
+
+#GET endpoint to retrieve the workout we just created. 
+curl http://localhost:8080/api/users/1/workouts

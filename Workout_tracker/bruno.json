@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Workout_tracker",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
