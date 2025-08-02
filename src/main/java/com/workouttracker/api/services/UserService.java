@@ -1,25 +1,32 @@
 package com.workouttracker.api.services;
 
 import com.workouttracker.api.dto.UserDto;
+import com.workouttracker.api.dto.UserLoginDto;
 import com.workouttracker.api.dto.UserRegistrationDto;
 import com.workouttracker.api.mappers.UserMapper;
 import com.workouttracker.api.models.User;
-import com.workouttracker.api.models.UserPrincipal;
 import com.workouttracker.api.repositories.UserRepository;
 
 import java.util.List;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService{
+public class UserService{
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    @Autowired
+    private JWTService jwtService;
+    
+    @Autowired
+    AuthenticationManager authManager;
 
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
@@ -46,14 +53,16 @@ public class UserService implements UserDetailsService{
         
         return userRepository.findAllUsernames();
     }
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            System.out.println("User Not Found");
-            throw new UsernameNotFoundException("user not found");
+    
+
+    public String login(UserLoginDto loginDto) {
+        Authentication authentication = authManager.authenticate(
+            new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
+        );
+        if (authentication.isAuthenticated()) {
+            return jwtService.generateToken(loginDto.getUsername());  
+           } else {
+               return "fail";
         }
-        
-        return new UserPrincipal(user);
     }
-} 
+}
