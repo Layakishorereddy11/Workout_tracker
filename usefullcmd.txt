@@ -8,6 +8,13 @@ curl -X POST http://localhost:8080/api/users/register \
   "password": "password123"
 }'
 
+curl -X POST http://localhost:8080/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "password123"
+}'
 
 #send a POST request to create a new workout for our user with id 1.
 curl -X POST http://localhost:8080/api/users/1/workouts \

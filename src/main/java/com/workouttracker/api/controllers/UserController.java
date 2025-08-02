@@ -3,6 +3,9 @@ package com.workouttracker.api.controllers;
 import com.workouttracker.api.dto.UserDto;
 import com.workouttracker.api.dto.UserRegistrationDto;
 import com.workouttracker.api.services.UserService;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,4 +24,12 @@ public class UserController {
         UserDto newUser = userService.registerUser(registrationDto);
         return ResponseEntity.ok(newUser);
     }
+
+    // UserController.java
+    @GetMapping("/usernames")
+    public ResponseEntity<List<String>> getAllUsernames() {
+        List<String> usernames = userService.getAllUsernames();
+        return ResponseEntity.ok(usernames);
+    }
+
 } 
