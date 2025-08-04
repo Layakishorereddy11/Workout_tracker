@@ -2,6 +2,7 @@ package com.workouttracker.api.services;
 
 import com.workouttracker.api.dto.UserDto;
 import com.workouttracker.api.dto.UserLoginDto;
+import com.workouttracker.api.dto.LoginResponseDto;
 import com.workouttracker.api.dto.UserRegistrationDto;
 import com.workouttracker.api.mappers.UserMapper;
 import com.workouttracker.api.models.User;
@@ -55,14 +56,13 @@ public class UserService{
     }
     
 
-    public String login(UserLoginDto loginDto) {
+    public LoginResponseDto login(UserLoginDto loginDto) {
         Authentication authentication = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
         );
-        if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(loginDto.getUsername());  
-           } else {
-               return "fail";
-        }
+            User user = userRepository.findByUsername(loginDto.getUsername());
+            String token = jwtService.generateToken(loginDto.getUsername());
+            
+            return new LoginResponseDto(userMapper.toUserDto(user), token);
     }
 }

@@ -2,6 +2,7 @@ package com.workouttracker.api.controllers;
 
 import com.workouttracker.api.dto.UserDto;
 import com.workouttracker.api.dto.UserLoginDto;
+import com.workouttracker.api.dto.LoginResponseDto;
 import com.workouttracker.api.dto.UserRegistrationDto;
 import com.workouttracker.api.services.UserService;
 
@@ -34,9 +35,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserLoginDto loginDto) {
-        String token = userService.login(loginDto);
-        return ResponseEntity.ok(token);
+    public ResponseEntity<LoginResponseDto> login(@RequestBody UserLoginDto loginDto) {
+        LoginResponseDto response = userService.login(loginDto);
+        return ResponseEntity.ok(response);
     }
 
 } 
