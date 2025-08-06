@@ -1,0 +1,25 @@
+meta {
+  name: Forgotpass
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/api/account-recovery/forgot-password
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsYXlhIiwiaWF0IjoxNzU0NDMwOTkyLCJleHAiOjE3NTQ1MTczOTJ9.GhATilpRwnPCQj7v9aKmd3g8_q7clLJDF4bYRPbXWDk
+}
+
+body:json {
+  {
+      "email": "layakishorereddy@gmail.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
