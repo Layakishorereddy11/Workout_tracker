@@ -41,3 +41,10 @@ curl -X POST http://localhost:8080/api/users/1/workouts \
 
 #GET endpoint to retrieve the workout we just created. 
 curl http://localhost:8080/api/users/1/workouts
+
+curl -X POST https://workout-tracker-api-3y8u.onrender.com/api/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "user",
+    "password": "password"
+  }'

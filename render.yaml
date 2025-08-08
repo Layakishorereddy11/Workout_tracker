@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: workout-tracker-api
+    runtime: docker
+    repo: https://github.com/Layakishorereddy11/Workout_tracker_Backend.git 
+    plan: free
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: workout-tracker-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: workout-tracker-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: workout-tracker-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: workout-tracker-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: workout-tracker-db
+          property: password
+      - key: EMAIL_USERNAME
+        sync: false # Set this in the Render dashboard
+      - key: EMAIL_PASSWORD
+        sync: false # Set this in the Render dashboard
+
+databases:
+  - name: workout-tracker-db
+    plan: free
+    ipAllowList: [] # Allow access from anywhere 

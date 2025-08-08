@@ -5,9 +5,17 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/api/users/register
-  body: none
+  url: https://workout-tracker-api-3y8u.onrender.com/api/users/register
+  body: json
   auth: inherit
+}
+
+body:json {
+  {
+    "username": "user",
+    "email": "la@g.com",
+    "password": "pas"
+  }
 }
 
 settings {
